@@ -21,9 +21,11 @@ export default function Input(props) {
                         </span>
                         : null
                 }
-                <input type={inputType || 'text'}
+                <input
+                    type={inputType || 'text'}
                     className='form-control'
-                    placeholder={placeholderText} id={inputId}
+                    placeholder={placeholderText}
+                    id={inputId}
                     value={fieldValue}
                     onChange={(e) => onChange(e)}
                 />
