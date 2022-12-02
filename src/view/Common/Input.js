@@ -28,6 +28,7 @@ export default function Input(props) {
                     id={inputId}
                     value={fieldValue}
                     onChange={(e) => onChange(e)}
+                    {...props}
                 />
             </div>
             <ErrorMessage errors={errorMessage} />

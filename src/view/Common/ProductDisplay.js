@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import StarRating from './StarRating';
 import { useHistory } from 'react-router-dom';
+import { styles } from '../../assets/css/styles';
 
 export default function ProductDisplay(props) {
     const { productName,
@@ -58,12 +59,7 @@ export default function ProductDisplay(props) {
                             </div>
                         </div>
                         <div className='col-3'>
-                            <img src='https://picsum.photos/200' style={{
-                                borderRadius: '8%',
-                                border: '3px solid #2D2D91',
-                                margin: '5%'
-                            }}
-                                alt='Not Found' />
+                            <img src='https://picsum.photos/200' style={styles.imageStyle} alt='Not Found' />
                         </div>
                     </div>
 

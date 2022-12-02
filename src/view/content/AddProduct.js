@@ -4,13 +4,15 @@ import { useHistory } from 'react-router-dom';
 import { validateAll } from 'indicative/validator';
 
 import Input from '../Common/Input';
-import { styles } from '../../assets/css/styles';
 import Select from '../Common/Select';
+import Header from '../Common/Header';
+import { styles } from '../../assets/css/styles';
 
 export default function AddProduct() {
     const initState = {
         productName: '',
         productCategory: '',
+        productImage: '',
         errors: {}
     };
     const [state, setState] = useState(initState);
@@ -25,16 +27,23 @@ export default function AddProduct() {
         });
     };
 
+    const onUploadImage = (e) => {
+        setState({
+            ...state,
+            productImage: URL.createObjectURL(e?.target?.files[0]),
+            errors: {}
+        });
+    };
+
     const onSubmitPress = () => {
         const message = {
-            'email.required': 'Please enter a Email address',
-            'email.email': 'Please enter a Valid Email address',
-            'password.required': 'Please enter a Password',
+            'productName.required': 'Please enter a Product Name',
+            'productCategory.required': 'Please enter a Product Category',
         };
 
         const rules = {
-            email: 'required|email',
-            password: 'required|string'
+            productName: 'required|string',
+            productCategory: 'required|string'
         };
 
         validateAll(state, rules, message)
@@ -56,9 +65,10 @@ export default function AddProduct() {
 
     return (
         <>
+            <Header />
             <div className='container d-flex justify-content-center' style={{ marginTop: '5%' }}>
                 <div className='card' style={{ width: '40%' }}>
-                    <div className="d-flex justify-content-center card-header" style={styles.backgroundLightBlue}>
+                    <div className='d-flex justify-content-center card-header' style={styles.backgroundLightBlue}>
                         <h6>Add Product</h6>
                     </div>
                     <div className='card-body'>
@@ -66,9 +76,9 @@ export default function AddProduct() {
                             label='Product Name'
                             fieldValue={state.productName}
                             onChange={(e) => onInputChange(e)}
-                            errorMessage={state.errors.productName}
                             placeholderText='Product Name'
                             inputId='productName'
+                            errorMessage={state.errors.productName}
                         />
 
                         <Select
@@ -78,6 +88,31 @@ export default function AddProduct() {
                             selectId='productCategory'
                             errorMessage={state.errors.productCategory}
                         />
+
+                        <div className='row mt-2'>
+                            <div className='col-9'>
+                                <label className='form-label'>Product Image</label>
+                                <input
+                                    type='file'
+                                    accept='image/*'
+                                    onChange={(e) => onUploadImage(e)}
+                                />
+                            </div>
+                            <div className='col-3 mt-2'>
+                                {
+                                    state.productImage ?
+                                        <img
+                                            style={{ width: '100px', height: '100px', ...styles.imageStyle }}
+                                            src={state.productImage}
+                                            alt='Not Uploaded'
+                                        />
+                                        : null
+                                }
+                            </div>
+                        </div>
+                        <div className='text-center d-grid gap-2 mt-2'>
+                            <button type='button' className='btn btn-outline-primary' onClick={() => onSubmitPress()}>Add New Product</button>
+                        </div>
                     </div>
                 </div>
             </div>

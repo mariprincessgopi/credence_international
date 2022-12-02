@@ -31,5 +31,10 @@ export const styles = {
         marginLeft: '2%',
         marginTop: '2%'
     },
+    imageStyle: {
+        borderRadius: '8%',
+        border: '3px solid #2D2D91',
+        margin: '5%'
+    }
 }
 
